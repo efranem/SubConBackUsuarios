@@ -1,7 +1,5 @@
 package com.subcon.app.restcontroller;
 
-import java.util.List;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -34,17 +32,17 @@ public class UsuariosController {
 	}
 
 	@GetMapping(path = "/usuario", produces = MediaType.APPLICATION_JSON_VALUE)
-	public ResponseEntity<List<Usuario>> login(@RequestHeader(name = "usuario", required = true) String usuario, @RequestHeader(name = "password", required = true) String password) {
+	public ResponseEntity<Usuario> login(@RequestHeader(name = "usuario", required = true) String usuario, @RequestHeader(name = "password", required = true) String password) {
 		
-		List<Usuario> list = repositoryUsuarios.login(usuario, password);
+		Usuario user = repositoryUsuarios.login(usuario, password);
 	
-		if(list == null || list.isEmpty())
+		if(user == null)
 		{
-			return ResponseEntity.status(204).body(list);
+			return ResponseEntity.status(204).body(user);
 		}
 		else
 		{
-			return ResponseEntity.status(200).body(list);
+			return ResponseEntity.status(200).body(user);
 		}
 		
 	}
